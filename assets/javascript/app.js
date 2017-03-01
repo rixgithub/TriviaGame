@@ -46,18 +46,19 @@ var incorrectAnswers = 0;
 
 var unanswered = 0;
 
-var timer =10;
+var timer = 10;
 
 var intervalId;
 
 function timerStart() {
+	timer = 10;
 	intervalId = setInterval(decrement, 1000);
 }
 
 function decrement() {
 	timer--;
 	$("#timeRemaining").html("Time Remaining: " + timer);
-	if (timer === 0) {
+	if (timer < 1) {
         timerStop();
     }
 }
@@ -72,7 +73,7 @@ function gamestart() {
 		firstQuestion();
 	});
 }
-
+	
 function firstQuestion() {
   	timerStart();
 	$("#questionDiv").html("<h2>" + question1.question + "</h2>");
@@ -80,14 +81,15 @@ function firstQuestion() {
 	$("#answersDiv").append("<button class='button right'>" + question1.answer + "</button>" + "<br>");
 	$("#answersDiv").append("<button class='button wrong'>" + question1.wrongTwo + "</button>" + "<br>");
 	$("#answersDiv").append("<button class='button wrong'>" + question1.wrongThree + "</button>" + "<br>");
-
+	
 	$(".right").on("click", function() {
 		if (timer > 0) {
 			correctAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>You Are Correct!</h2>" + "<br>" + "<img>St. Paul pic</img>");
-			setTimeout(secondQuestion, 4000);
-		}
+			timerStop();
+			setTimeout(secondQuestion, 3000);
+		}	 	
 	});
 	
 	$(".wrong").on("click", function() {
@@ -95,21 +97,24 @@ function firstQuestion() {
 			incorrectAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>Wrong Answer!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
-			setTimeout(secondQuestion, 4000);
-		}
+			timerStop();
+			setTimeout(secondQuestion, 3000);
+		}	
 	});
 
-	if (timer === 0) {
-		unanswered++;
-		$("#timeRemaining, #questionDiv, #answersDiv").empty();	
-		$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
-		setTimeout(secondQuestion, 4000);
-		console.log("unanswered" + unanswered);
+	function timeUp1() {
+		if (timer === 0) {
+			unanswered++;
+			$("#timeRemaining, #questionDiv, #answersDiv").empty();	
+			$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
+			timerStop();
+			setTimeout(secondQuestion, 3000);
+		}
 	}
+	setTimeout(timeUp1, 10000);
 }
 
 function secondQuestion() {
-	questionsAnswered = 1;
 	timerStart();
 	$("#resultDiv").empty();
 	$("#questionDiv").html("<h2>" + question2.question + "</h2>");
@@ -123,6 +128,7 @@ function secondQuestion() {
 			correctAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>You Are Correct!</h2>" + "<br>" + "<img>Albany pic</img>");
+			timerStop();
 			setTimeout(thirdQuestion, 3000);
 		}
 	});
@@ -132,20 +138,24 @@ function secondQuestion() {
 			incorrectAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>Wrong Answer!</h2>" + "<h3>The Correct Answer is Albany</h3>" + "<img>Albany pic</img>");
+			timerStop();
 			setTimeout(thirdQuestion, 3000);
 		}
 	});
 
-	if (timer === 0) {
-		unanswered++;
-		$("#timeRemaining, #questionDiv, #answersDiv").empty();
-		$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is Albany</h3>" + "<img>Albany pic</img>");
-		setTimeout(thirdQuestion, 3000);
+	function timeUp2() {
+		if (timer === 0) {
+			unanswered++;
+			$("#timeRemaining, #questionDiv, #answersDiv").empty();	
+			$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
+			timerStop();
+			setTimeout(thirdQuestion, 3000);
+		}
 	}
+	setTimeout(timeUp2, 10000);
 }
 
 function thirdQuestion() {
-	questionsAnswered = 2;
 	timerStart();
 	$("#resultDiv").empty();
 	$("#questionDiv, #answersDiv").empty();
@@ -160,6 +170,7 @@ function thirdQuestion() {
 			correctAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>You Are Correct!</h2>" + "<br>" + "<img>Denver pic</img>");
+			timerStop();
 			setTimeout(fourthQuestion, 3000);
 		}
 	});
@@ -169,20 +180,24 @@ function thirdQuestion() {
 			incorrectAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>Wrong Answer!</h2>" + "<h3>The Correct Answer is Denver</h3>" + "<img>Denver pic</img>");
+			timerStop();
 			setTimeout(fourthQuestion, 3000);
 		}
 	});
 
-	if (timer === 0) {
-		unanswered++;
-		$("#timeRemaining, #questionDiv, #answersDiv").empty();
-		$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is Denver</h3>" + "<img>Denver pic</img>");
-		setTimeout(fourthQuestion, 3000);
+	function timeUp3() {
+		if (timer === 0) {
+			unanswered++;
+			$("#timeRemaining, #questionDiv, #answersDiv").empty();	
+			$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
+			timerStop();
+			setTimeout(fourthQuestion, 3000);
+		}
 	}
+	setTimeout(timeUp3, 10000);
 }
 
 function fourthQuestion() {
-	questionsAnswered = 3;
 	timerStart();
 	$("#resultDiv").empty();
 	$("#questionDiv #answersDiv").empty();
@@ -197,8 +212,8 @@ function fourthQuestion() {
 			correctAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>You Are Correct!</h2>" + "<br>" + "<img>Annapolis pic</img>");
+			timerStop();
 			setTimeout(fifthQuestion, 3000);
-
 		}
 	});
 
@@ -207,20 +222,24 @@ function fourthQuestion() {
 			incorrectAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>Wrong Answer!</h2>" + "<h3>The Correct Answer is Annapolis</h3>" + "<img>Annapolis pic</img>");
+			timerStop();
 			setTimeout(fifthQuestion, 3000);
 		}
 	});
 
-	if (timer === 0) {
-		unanswered++;
-		$("#timeRemaining, #questionDiv, #answersDiv").empty();
-		$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is Annapolis</h3>" + "<img>Annapolis pic</img>");
-		setTimeout(fifthQuestion, 3000);
+	function timeUp4() {
+		if (timer === 0) {
+			unanswered++;
+			$("#timeRemaining, #questionDiv, #answersDiv").empty();	
+			$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
+			timerStop();
+			setTimeout(fifthQuestion, 3000);
+		}
 	}
+	setTimeout(timeUp4, 10000);
 }
 
 function fifthQuestion() {
-	questionsAnswered = 4;
 	timerStart();
 	$("#resultDiv").empty();
 	$("#questionDiv #answersDiv").empty();
@@ -235,8 +254,8 @@ function fifthQuestion() {
 			correctAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>You Are Correct!</h2>" + "<br>" + "<img>Sacramento pic</img>");
+			timerStop();
 			setTimeout(displayResults, 3000);
-
 		}
 	});
 
@@ -245,16 +264,21 @@ function fifthQuestion() {
 			incorrectAnswers++;
 			$("#timeRemaining, #questionDiv, #answersDiv").empty();
 			$("#resultDiv").append("<h2>Wrong Answer!</h2>" + "<h3>The Correct Answer is Sacramento</h3>" + "<img>Sacramento pic</img>");
+			timerStop();
 			setTimeout(displayResults, 3000);
 		}
 	});
 
-	if (timer === 0) {
-		unanswered++;
-		$("#timeRemaining, #questionDiv, #answersDiv").empty();
-		$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is Sacramento</h3>" + "<img>Sacramento pic</img>");
-		setTimeout(displayResults, 3000);
+	function timeUp5() {
+		if (timer === 0) {
+			unanswered++;
+			$("#timeRemaining, #questionDiv, #answersDiv").empty();	
+			$("#resultDiv").append("<h2>Time Is Up!</h2>" + "<h3>The Correct Answer is St. Paul</h3>" + "<img>St. Paul pic</img>");
+			timerStop();
+			setTimeout(displayResults, 3000);
+		}
 	}
+	setTimeout(timeUp5, 10000);
 }
 
 function displayResults() {	
@@ -266,6 +290,9 @@ function displayResults() {
 
 	$("#restart").on("click", function() {
 		$("#resultDiv").empty();
+		correctAnswers = 0;
+		incorrectAnswers = 0;
+		unanswered = 0;
 		firstQuestion();
 	});
 }
