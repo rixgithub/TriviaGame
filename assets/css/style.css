@@ -1,0 +1,27 @@
+body {
+	background-color: #aed8e8;
+}
+
+.wrong {
+	margin: 10px;
+}
+
+.right {
+	margin: 10px;
+}
+
+#timeRemaining {
+	font-size: 20px;
+}
+
+#resultDiv {
+	font-size: 20px;
+}
+
+#start {
+	margin-bottom: 10px;
+}
+
+#pic {
+	margin-top: 10px;
+}
